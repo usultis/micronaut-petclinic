@@ -1,0 +1,27 @@
+micronaut:
+  views:
+    folder: templates
+  router:
+    static-resources:
+      static:
+        paths: classpath:static/resources
+        mapping: /resources/**
+      webjars:
+        paths: classpath:META-INF/resources/webjars
+        mapping: /webjars/**
+
+datasources:
+  default:
+    url: ${JDBC_URL:`jdbc:postgresql://localhost:5432/petclinic`}
+    username: postgres
+    password: petclinic
+    driverClassName: org.postgresql.Driver
+
+jpa:
+  default:
+    packages-to-scan:
+      - com.example.micronaut.petclinic
+    properties:
+      hibernate:
+        show_sql: true
+        dialect: org.hibernate.dialect.PostgreSQL95Dialect
