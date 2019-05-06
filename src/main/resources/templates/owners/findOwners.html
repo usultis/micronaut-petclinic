@@ -11,8 +11,8 @@
       <div class="control-group" id="lastNameGroup">
         <label class="col-sm-2 control-label">Last name </label>
         <div class="col-sm-10">
-          <input class="form-control" th:field="*{lastName}" size="30"
-            maxlength="80" /> <span class="help-inline"><div
+          <input class="form-control" size="30"
+            maxlength="80" id="lastName" name="lastName" th:value="*{lastName}" /> <span class="help-inline"><div
               th:if="${#fields.hasAnyErrors()}">
               <p th:each="err : ${#fields.allErrors()}" th:text="${err}">Error</p>
             </div></span>
