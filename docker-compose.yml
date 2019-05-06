@@ -1,9 +1,9 @@
-mysql:
-  image: mysql:5.7
+postgresql:
+  image: postgres:11.2-alpine
   ports:
-    - "3306:3306"
+    - "5432:5432"
   environment:
-    - MYSQL_ROOT_PASSWORD=petclinic
-    - MYSQL_DATABASE=petclinic
+    - POSTGRES_PASSWORD=petclinic
+    - POSTGRES_DB=petclinic
   volumes:
-    - "./conf.d:/etc/mysql/conf.d:ro"
+    - "./postgresql:/docker-entrypoint-initdb.d"
