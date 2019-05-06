@@ -15,7 +15,7 @@
  */
 package com.example.micronaut.petclinic;
 
-import com.example.micronaut.petclinic.system.thymeleaf.Fields;
+import com.example.micronaut.petclinic.system.thymeleaf.PetClinicExpressionObjectDialect;
 import com.sun.el.ExpressionFactoryImpl;
 import io.micronaut.configuration.hibernate.jpa.condition.EntitiesInPackageCondition;
 import io.micronaut.core.annotation.TypeHint;
@@ -188,7 +188,7 @@ import org.thymeleaf.standard.expression.SubtractionExpression;
     NotEqualsExpression.class,
     OrExpression.class,
     Temporals.class,
-    Fields.class,
+    PetClinicExpressionObjectDialect.Fields.class,
     // Others
     ExpressionFactoryImpl.class,
     ImplicitNamingStrategyJpaCompliantImpl.class,

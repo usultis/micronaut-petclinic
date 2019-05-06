@@ -1,9 +1,12 @@
-postgresql:
-  image: postgres:11.2-alpine
-  ports:
-    - "5432:5432"
-  environment:
-    - POSTGRES_PASSWORD=petclinic
-    - POSTGRES_DB=petclinic
-  volumes:
-    - "./postgresql:/docker-entrypoint-initdb.d"
+version: '2'
+
+services:
+  db:
+    image: postgres:11.2-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_PASSWORD=petclinic
+      - POSTGRES_DB=petclinic
+    volumes:
+      - "./postgresql:/docker-entrypoint-initdb.d"

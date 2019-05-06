@@ -41,14 +41,18 @@ java -jar target/*.jar
 This PetClinic supports [GraalVM](https://www.graalvm.org/) native image build.
 
 ```
-./mvnw package
-docker build -t micronaut-petclinic .
+./mvnw package && docker build -t micronaut-petclinic .
 ```
 
 I usually have ☕ (around 10 mins on my laptop) to wait for the build finishes.
 
 ```
-docker run --rm -p 8080:8080 micronaut-petclinic
+# Docker for Mac or Windows
+export HOST_NAME=host.docker.internal
+# Linux
+export HOST_NAME=172.17.0.1
+
+docker run --rm -p 8080:8080 -e JDBC_URL=jdbc:postgresql://${HOST_NAME}:5432/petclinic micronaut-petclinic
 ```
 
 It starts in 300-400ms.
@@ -59,8 +63,8 @@ The Micronaut PetClinic sample application is released under version 2.0 of the 
 
 # TODO
 
-- [ ] Basic features with Micronaut
-- [ ] Native Image
+- [x] Basic features with Micronaut
+- [x] Native Image
 - [ ] Logging
 - [ ] Validation
 - [ ] Error Handling
