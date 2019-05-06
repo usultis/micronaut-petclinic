@@ -15,23 +15,36 @@
  */
 package com.example.micronaut.petclinic.system;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import io.micronaut.http.HttpRequest;
+import io.micronaut.http.HttpResponse;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Error;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.views.View;
 
 /**
  * Controller used to showcase what happens when an exception is thrown
  *
  * @author Michael Isvy
+ * @author Mitz Shiiba
  * <p/>
  * Also see how a view that resolves to "error" has been added ("error.html").
  */
 @Controller
 class CrashController {
 
-    @GetMapping("/oups")
-    public String triggerException() {
+    @Get("/oups")
+    public HttpResponse triggerException() {
         throw new RuntimeException("Expected: controller used to showcase what "
-                + "happens when an exception is thrown");
+            + "happens when an exception is thrown");
     }
 
+    // TODO: Make error handling implementation better.
+    @View("error")
+    @Error(global = true)
+    public HttpResponse error(HttpRequest request, Throwable e) {
+        // TODO: use logger
+        e.printStackTrace();
+        return HttpResponse.serverError();
+    }
 }

@@ -15,48 +15,39 @@
  */
 package com.example.micronaut.petclinic.owner;
 
-import java.text.ParseException;
-import java.util.Collection;
-import java.util.Locale;
+import io.micronaut.core.convert.ConversionContext;
+import io.micronaut.core.convert.TypeConverter;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.Formatter;
-import org.springframework.stereotype.Component;
+import javax.inject.Singleton;
+import java.util.Collection;
+import java.util.Optional;
 
 /**
- * Instructs Spring MVC on how to parse and print elements of type 'PetType'. Starting from Spring 3.0, Formatters have
- * come as an improvement in comparison to legacy PropertyEditors. See the following links for more details: - The
- * Spring ref doc: https://docs.spring.io/spring-framework/docs/current/spring-framework-reference/core.html#format
+ * Use Micronaut TypeConverter instead of Spring Formatter.
  *
  * @author Mark Fisher
  * @author Juergen Hoeller
  * @author Michael Isvy
+ * @author Mitz Shiiba
  */
-@Component
-public class PetTypeFormatter implements Formatter<PetType> {
+@Singleton
+public class PetTypeFormatter implements TypeConverter<String, PetType> {
 
     private final PetRepository pets;
 
-
-    @Autowired
     public PetTypeFormatter(PetRepository pets) {
         this.pets = pets;
     }
 
     @Override
-    public String print(PetType petType, Locale locale) {
-        return petType.getName();
-    }
-
-    @Override
-    public PetType parse(String text, Locale locale) throws ParseException {
+    public Optional<PetType> convert(String object, Class<PetType> targetType, ConversionContext context) {
         Collection<PetType> findPetTypes = this.pets.findPetTypes();
         for (PetType type : findPetTypes) {
-            if (type.getName().equals(text)) {
-                return type;
+            if (type.getName().equals(object)) {
+                return Optional.of(type);
             }
         }
-        throw new ParseException("type not found: " + text, 0);
+        return Optional.empty();
     }
 
 }

@@ -15,21 +15,25 @@
  */
 package com.example.micronaut.petclinic.visit;
 
-import java.time.LocalDate;
+import com.example.micronaut.petclinic.model.BaseEntity;
+import com.example.micronaut.petclinic.owner.Pet;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-
-import com.example.micronaut.petclinic.model.BaseEntity;
-import org.springframework.format.annotation.DateTimeFormat;
+import java.time.LocalDate;
 
 /**
  * Simple JavaBean domain object representing a visit.
  *
  * @author Ken Krebs
  * @author Dave Syer
+ * @author Mitz Shiiba
  */
 @Entity
 @Table(name = "visits")
@@ -43,8 +47,9 @@ public class Visit extends BaseEntity {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "pet_id")
-    private Integer petId;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "pet_id")
+    private Pet pet;
 
     /**
      * Creates a new instance of Visit for the current date
@@ -69,12 +74,12 @@ public class Visit extends BaseEntity {
         this.description = description;
     }
 
-    public Integer getPetId() {
-        return this.petId;
+    public Pet getPet() {
+        return this.pet;
     }
 
-    public void setPetId(Integer petId) {
-        this.petId = petId;
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 
 }

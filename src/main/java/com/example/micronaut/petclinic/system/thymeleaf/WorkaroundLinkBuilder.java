@@ -13,22 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.example.micronaut.petclinic.system;
+package com.example.micronaut.petclinic.system.thymeleaf;
 
-import io.micronaut.http.HttpResponse;
-import io.micronaut.http.annotation.Controller;
-import io.micronaut.http.annotation.Get;
-import io.micronaut.views.View;
+import io.micronaut.views.thymeleaf.LinkBuilder;
+import org.thymeleaf.context.IExpressionContext;
+
+import java.util.Map;
 
 /**
+ * Workaround LinkBuilder for the following issue:
+ * https://github.com/micronaut-projects/micronaut-core/issues/1619
+ *
  * @author Mitz Shiiba
  */
-@Controller
-class WelcomeController {
-
-    @View("welcome")
-    @Get("/")
-    public HttpResponse welcome() {
-        return HttpResponse.ok();
+public class WorkaroundLinkBuilder extends LinkBuilder {
+    @Override
+    protected String computeContextPath(IExpressionContext context, String base, Map<String, Object> parameters) {
+        return null;
     }
 }

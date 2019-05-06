@@ -15,14 +15,14 @@
  */
 package com.example.micronaut.petclinic.owner;
 
+import com.example.micronaut.petclinic.model.NamedEntity;
+
 import javax.persistence.Entity;
 import javax.persistence.Table;
 
-import com.example.micronaut.petclinic.model.NamedEntity;
-
 /**
  * @author Juergen Hoeller
- *         Can be Cat, Dog, Hamster...
+ * Can be Cat, Dog, Hamster...
  */
 @Entity
 @Table(name = "types")
