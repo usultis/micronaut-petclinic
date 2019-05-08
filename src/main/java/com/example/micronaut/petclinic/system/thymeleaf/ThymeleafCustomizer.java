@@ -41,7 +41,6 @@ public class ThymeleafCustomizer implements BeanCreatedEventListener<TemplateEng
         engine.addDialect(new Java8TimeDialect());
         engine.addDialect(new PetClinicExpressionObjectDialect());
         engine.setMessageResolver(new PetClinicMessageResolver(rendererConfiguration));
-        engine.setLinkBuilder(new WorkaroundLinkBuilder());
         return engine;
     }
 }
