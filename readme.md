@@ -71,3 +71,4 @@ The Micronaut PetClinic sample application is released under version 2.0 of the 
 - [ ] Cache
 - [ ] Hot Reloading?
 - [ ] Tests
+- [ ] Management
