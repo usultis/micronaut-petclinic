@@ -16,7 +16,7 @@ cd micronaut-petclinic
 This Petclinic uses PostgreSQL. You could start PostgreSQL with docker:
 
 ```
-docker-compose up
+docker run -p "5432:5432" -e POSTGRES_DB=petclinic -e POSTGRES_PASSWORD=petclinic postgres:11.2-alpine
 ```
 
 ### 3. Run Application
@@ -46,13 +46,10 @@ This PetClinic supports [GraalVM](https://www.graalvm.org/) native image build.
 
 I usually have ☕ (around 10 mins on my laptop) to wait for the build finishes.
 
-```
-# Docker for Mac or Windows
-export HOST_NAME=host.docker.internal
-# Linux
-export HOST_NAME=172.17.0.1
+Use Docker compose to start the application:
 
-docker run --rm -p 8080:8080 -e JDBC_URL=jdbc:postgresql://${HOST_NAME}:5432/petclinic micronaut-petclinic
+```
+docker-compose up
 ```
 
 It starts in 300-400ms.

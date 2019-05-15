@@ -1,6 +1,15 @@
 version: '2'
 
 services:
+  app:
+    image: micronaut-petclinic
+    ports:
+      - "8080:8080"
+    links:
+      - db      
+    environment:
+      JDBC_HOST: db
+      JDBC_PORT: 5432      
   db:
     image: postgres:11.2-alpine
     ports:
