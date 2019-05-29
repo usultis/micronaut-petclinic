@@ -1,4 +1,5 @@
-FROM oracle/graalvm-ce:1.0.0-rc16 as graalvm
+FROM oracle/graalvm-ce:19.0.0 as graalvm
+RUN gu install native-image
 WORKDIR /work
 COPY ./target/micronaut-petclinic-*.jar .
 RUN native-image --no-server -cp micronaut-petclinic-*.jar
