@@ -16,7 +16,7 @@ cd micronaut-petclinic
 This Petclinic uses PostgreSQL. You could start PostgreSQL with docker:
 
 ```
-docker run -p "5432:5432" -e POSTGRES_DB=petclinic -e POSTGRES_PASSWORD=petclinic postgres:11.2-alpine
+docker-compose up db
 ```
 
 ### 3. Run Application
@@ -49,10 +49,19 @@ I usually have ☕ (around 10 mins on my laptop) to wait for the build finishes.
 Use Docker compose to start the application:
 
 ```
-docker-compose up
+docker-compose up -d
 ```
 
 It starts in 300-400ms.
+
+### Note
+
+From GraalVM 19.0.0, it fails to build native-image because of this issue:
+https://github.com/oracle/graal/issues/1295
+
+It works if I build GraalVM from master branch and use it.
+So for now, I prepared a Docker image with the build:
+https://hub.docker.com/r/bufferings/build-graalvm-docker
 
 # License
 
