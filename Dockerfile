@@ -1,6 +1,6 @@
-#FROM oracle/graalvm-ce:19.0.0 as graalvm
-#RUN gu install native-image
-FROM bufferings/build-graalvm-docker as graalvm
+FROM oracle/graalvm-ce:19.2.0.1 as graalvm
+RUN gu install native-image
+
 WORKDIR /work
 COPY ./target/micronaut-petclinic-*.jar .
 RUN native-image --no-server -cp micronaut-petclinic-*.jar
