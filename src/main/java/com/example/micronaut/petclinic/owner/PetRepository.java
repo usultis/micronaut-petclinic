@@ -15,8 +15,13 @@
  */
 package com.example.micronaut.petclinic.owner;
 
+import io.micronaut.configuration.hibernate.jpa.scope.CurrentSession;
+import io.micronaut.data.annotation.Query;
+import io.micronaut.data.annotation.Repository;
+import io.micronaut.data.repository.GenericRepository;
 import io.micronaut.spring.tx.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -28,15 +33,23 @@ import java.util.List;
  * @author Michael Isvy
  * @author Mitz Shiiba
  */
-public interface PetRepository {
+@Repository
+public abstract class PetRepository implements GenericRepository<Pet, Integer> {
+
+    private final EntityManager entityManager;
+
+    public PetRepository(@CurrentSession EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     /**
      * Retrieve all {@link PetType}s from the data store.
      *
      * @return a Collection of {@link PetType}s.
      */
+    @Query("SELECT ptype FROM PetType ptype ORDER BY ptype.name")
     @Transactional(readOnly = true)
-    List<PetType> findPetTypes();
+    public abstract List<PetType> findPetTypes();
 
     /**
      * Retrieve a {@link Pet} from the data store by id.
@@ -45,7 +58,7 @@ public interface PetRepository {
      * @return the {@link Pet} if found
      */
     @Transactional(readOnly = true)
-    Pet findById(Integer id);
+    public abstract Pet findById(Integer id);
 
     /**
      * Save a {@link Pet} to the data store, either inserting or updating it.
@@ -53,7 +66,13 @@ public interface PetRepository {
      * @param pet the {@link Pet} to save
      */
     @Transactional
-    void save(Pet pet);
+    public void save(Pet pet) {
+        if (pet.isNew()) {
+            entityManager.persist(pet);
+        } else {
+            entityManager.merge(pet);
+        }
+    }
 
 }
 

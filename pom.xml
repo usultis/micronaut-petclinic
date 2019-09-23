@@ -9,6 +9,7 @@
 
     <properties>
         <micronaut.version>1.2.2</micronaut.version>
+        <micronaut.data.version>1.0.0.M1</micronaut.data.version>
         <exec.mainClass>com.example.micronaut.petclinic.PetClinicApplication</exec.mainClass>
 
         <java.version>1.8</java.version>
@@ -76,13 +77,14 @@
             <artifactId>micronaut-validation</artifactId>
         </dependency>
         <dependency>
-            <groupId>io.micronaut.configuration</groupId>
-            <artifactId>micronaut-hibernate-jpa</artifactId>
-            <version>1.2.0.BUILD-SNAPSHOT</version>
+            <groupId>io.micronaut.data</groupId>
+            <artifactId>micronaut-data-hibernate-jpa</artifactId>
+            <version>${micronaut.data.version}</version>
         </dependency>
         <dependency>
             <groupId>io.micronaut.configuration</groupId>
             <artifactId>micronaut-jdbc-tomcat</artifactId>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -278,6 +280,11 @@
                                 <artifactId>micronaut-validation</artifactId>
                                 <version>${micronaut.version}</version>
                             </path>
+                            <path>
+                                <groupId>io.micronaut.data</groupId>
+                                <artifactId>micronaut-data-processor</artifactId>
+                                <version>${micronaut.data.version}</version>
+                            </path>
                         </annotationProcessorPaths>
                     </configuration>
                     <executions>
@@ -305,6 +312,11 @@
                                         <groupId>io.micronaut</groupId>
                                         <artifactId>micronaut-validation</artifactId>
                                         <version>${micronaut.version}</version>
+                                    </path>
+                                    <path>
+                                        <groupId>io.micronaut.data</groupId>
+                                        <artifactId>micronaut-data-processor</artifactId>
+                                        <version>${micronaut.data.version}</version>
                                     </path>
                                 </annotationProcessorPaths>
                             </configuration>

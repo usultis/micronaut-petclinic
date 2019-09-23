@@ -15,6 +15,8 @@
  */
 package com.example.micronaut.petclinic.vet;
 
+import io.micronaut.data.annotation.Repository;
+import io.micronaut.data.repository.GenericRepository;
 import io.micronaut.spring.tx.annotation.Transactional;
 
 import java.util.Collection;
@@ -28,7 +30,8 @@ import java.util.Collection;
  * @author Michael Isvy
  * @author Mitz Shiiba
  */
-public interface VetRepository {
+@Repository
+public interface VetRepository extends GenericRepository<Vet, Integer> {
 
     /**
      * Retrieve all <code>Vet</code>s from the data store.

@@ -15,9 +15,15 @@
  */
 package com.example.micronaut.petclinic.owner;
 
+import io.micronaut.configuration.hibernate.jpa.scope.CurrentSession;
+import io.micronaut.data.annotation.Query;
+import io.micronaut.data.annotation.Repository;
+import io.micronaut.data.repository.GenericRepository;
 import io.micronaut.spring.tx.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.util.Collection;
+import java.util.Optional;
 
 /**
  * Repository class for <code>Owner</code> domain objects.
@@ -28,31 +34,48 @@ import java.util.Collection;
  * @author Michael Isvy
  * @author Mitz Shiiba
  */
-public interface OwnerRepository {
+@Repository
+public abstract class OwnerRepository implements GenericRepository<Owner, Integer> {
+
+    private final EntityManager entityManager;
+
+    public OwnerRepository(@CurrentSession EntityManager entityManager) {
+        this.entityManager = entityManager;
+    }
 
     /**
      * Retrieve {@link Owner}s from the data store by last name, returning all owners
      * whose last name <i>starts</i> with the given name.
+     *
      * @param lastName Value to search for
      * @return a Collection of matching {@link Owner}s (or an empty Collection if none
      * found)
      */
+    @Query("SELECT DISTINCT owner FROM Owner owner left join fetch owner.pets WHERE owner.lastName LIKE  CONCAT(:lastName,'%')")
     @Transactional(readOnly = true)
-    Collection<Owner> findByLastName(String lastName);
+    public abstract Collection<Owner> findByLastName(String lastName);
 
     /**
      * Retrieve an {@link Owner} from the data store by id.
+     *
      * @param id the id to search for
      * @return the {@link Owner} if found
      */
+    @Query("SELECT owner FROM Owner owner left join fetch owner.pets WHERE owner.id =:id")
     @Transactional(readOnly = true)
-    Owner findById(Integer id);
+    public abstract Owner findById(Integer id);
 
     /**
      * Save an {@link Owner} to the data store, either inserting or updating it.
+     *
      * @param owner the {@link Owner} to save
      */
     @Transactional
-    void save(Owner owner);
-
+    public void save(Owner owner) {
+        if (owner.isNew()) {
+            entityManager.persist(owner);
+        } else {
+            entityManager.merge(owner);
+        }
+    }
 }
