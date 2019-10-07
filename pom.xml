@@ -193,7 +193,7 @@
             </plugin>
             <plugin>
                 <artifactId>maven-surefire-plugin</artifactId>
-                <version>2.22.0</version>
+                <version>3.0.0-M1</version>
             </plugin>
             <plugin>
                 <groupId>ro.isdc.wro4j</groupId>
@@ -247,7 +247,12 @@
                     </execution>
                 </executions>
             </plugin>
-        </plugins>
+        
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-deploy-plugin</artifactId>
+        <version>2.8.2</version></plugin>
+    </plugins>
 
         <pluginManagement>
             <plugins>
