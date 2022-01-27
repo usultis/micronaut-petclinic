@@ -28,7 +28,7 @@
 
         <substratevm.version>19.2.0.1</substratevm.version>
         <annotation-api.version>1.3.2</annotation-api.version>
-        <xerces.version>2.12.0</xerces.version>
+        <xerces.version>2.12.2</xerces.version>
     </properties>
 
     <repositories>
