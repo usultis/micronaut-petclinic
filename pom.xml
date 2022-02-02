@@ -16,7 +16,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 
         <logback.version>1.2.3</logback.version>
-        <postgresql.version>42.2.4</postgresql.version>
+        <postgresql.version>42.2.25</postgresql.version>
 
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
         <thymeleaf-java8time.version>3.0.4.RELEASE</thymeleaf-java8time.version>
